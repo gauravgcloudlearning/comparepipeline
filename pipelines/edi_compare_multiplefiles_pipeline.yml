@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+  # variables:
+  #   pythonVersion: '3.10'
+
+steps:
+# Step 1: Install Python
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.10'
+    addToPath: true
+
+  displayName: "Set up python"
+
+# Step 2: Install dependencies
+- script: |
+    python -m pip install --upgrade pip
+    # pip install difflib
+  displayName: "Install Python Dependencies "
+
+
+# Step 3: Run python script to compare Edi files
+- script: |
+    echo "Running EDI file comparision..."
+    python3.10 pipelines/scripts/edi/compare_multiple_edifiles.py
+  displayName: "Compare Multiple EDI Files"
+
+# Step 4: Publish comparision report as a pipeline artifact
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: edicompareresults/
+    artifactName: EDIComparisionResults
+  displayName: "Publish Multiple EDI Comparision Report"

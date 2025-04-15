@@ -1,0 +1,36 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  storageAccountName: ''
+  containerName : ''
+  fromDataPath : ''
+  toDataPath: ''
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Install Azure Storage preview extension'
+  inputs: 
+     azureSubscription: ''
+     scriptType: 'bash'
+     scriptLocation: 'inlineScript'
+     inlineScript: |
+       az extension add --name storage-preview
+
+- task: AzureCLI@2
+  displayName: 'List files in fromdata and todata'
+  inputs:
+     azureSubscription: ''
+     scriptType: 'bash'
+     scriptLocation: 'inlineScript'
+     inlineScript: |
+       echo "list files in fromdata directory"
+       az storage blob list \
+         --account-name $(storageAccountName) \
+         --container-name $(containerName) \
+         --prefix $(fromDataPath) \
+         --query "[].{Name:name}" \
+         --output table    

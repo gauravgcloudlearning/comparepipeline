@@ -1,0 +1,48 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: github_group
+
+steps:
+- checkout: self
+  submodules: "true"
+  persistCredentials: "true"
+  clean: "true"
+  path: self  
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    architecture: 'x64'
+
+- script: |
+    pip install requests
+  displayName: 'Install requests'
+
+- script: |
+    REPO_DATA=$(cat repo_data.json)
+    PAT=$(PAT)
+    
+    echo "Creating Repositories.."
+
+    echo "$REPO_DATA" | jq -c '.[]' | while read -r repo; do
+      name=$(echo "$repo" | jq -r '.name')
+      description=$(echo "$repo" | jq -r '.description')
+      echo "processing : $name, processing : $description"
+ 
+      curl -u ${Trepo_user}:${TPAT} https://api.github.com/user/repos -d "{\"name\":\"$name\", \"description\":\"$description\"}"        
+
+
+      if [$? -eq 0]; then
+        echo "Repository '$name' created successfully."
+      else  
+        echo "Failed to create repository '$name'."
+      fi
+    done  
+  displayName: 'Create Github repositories'
+
+  # env:
+  #   PAT: $(github_pat)
