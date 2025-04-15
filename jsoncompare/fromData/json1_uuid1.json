@@ -1,0 +1,24 @@
+{
+  "type": "850_PURCHASE_ORDER",
+  "version" : "4010",
+  "sender" : {
+      "isaId": "1234567890",
+      "name" : "Test Prartner"
+  },
+  "receiver" : {
+      "isaId": "9876543210",
+      "name" : "Enterprise"
+  },
+  "purchaseOrder" : {
+      "poNumber": "PO-12345",
+      "poDate": "20250312",
+      "items" : [
+         { 
+          "itemId": "1",
+          "quantity": 5,
+          "unitPrice": 10.00,
+          "unitOfMeasure" : "EA"
+         } 
+      ]
+  }  
+}
