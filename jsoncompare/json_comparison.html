@@ -1,0 +1,69 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>JSON Comparison (Colored Diff)</title>
+        <style>
+            body { font-family: monospace; display: flex; margin: 0; padding: 0; }
+            .container { flex: 1; padding: 20px; border: 1px solid #ccc; margin: 10px; overflow: auto; }
+            h2 { text-align: center; font-family: sans-serif; }
+            pre { white-space: pre-wrap; font-size: 14px; line-height: 1.5; }
+            .legend { display: flex; justify-content: center; margin-bottom: 15px; font-family: sans-serif; }
+            .legend-item { margin: 0 10px; padding: 2px 8px; border-radius: 3px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>File 1</h2>
+            <div class="legend">
+                <span class="legend-item" style="background-color: lightsalmon;">Removed</span>
+                <span class="legend-item" style="background-color: lightyellow;">Changed</span>
+            </div>
+            <pre>{
+  "billTo": {
+    "address": &quot;123 Maple Street&quot;,
+    "city": &quot;Pretendville&quot;,
+    "name": &quot;John Smith&quot;,
+    "state": &quot;NY&quot;,
+    "zip": &quot;12345&quot;
+  },
+  "name": &quot;John Smith&quot;,
+  "price": 23.95,
+  "shipTo": {
+    "address": &quot;123 Maple Street&quot;,
+    "city": <span style="background-color: lightyellow;">&quot;Pretendville&quot;</span>,
+    "name": &quot;Jane Smith&quot;,
+    <span style="background-color: lightsalmon;">"state": &quot;NY&quot;</span>,
+    "zip": <span style="background-color: lightyellow;">&quot;12345&quot;</span>
+  },
+  "sku": &quot;20223&quot;
+}</pre>
+        </div>
+        <div class="container">
+            <h2>File 2</h2>
+            <div class="legend">
+                <span class="legend-item" style="background-color: lightgreen;">Added</span>
+                <span class="legend-item" style="background-color: lightyellow;">Changed</span>
+            </div>
+            <pre>{
+  "billTo": {
+    "address": &quot;123 Maple Street&quot;,
+    "city": &quot;Pretendville&quot;,
+    "name": &quot;John Smith&quot;,
+    "state": &quot;NY&quot;,
+    "zip": &quot;12345&quot;
+  },
+  "name": &quot;John Smith&quot;,
+  "price": 23.95,
+  "shipTo": {
+    "address": &quot;123 Maple Street&quot;,
+    "city": <span style="background-color: lightyellow;">&quot;san jose&quot;</span>,
+    "name": &quot;Jane Smith&quot;,
+    "zip": <span style="background-color: lightyellow;">&quot;95076&quot;</span>
+  },
+  "sku": &quot;20223&quot;
+}</pre>
+        </div>
+    </body>
+    </html>
+    
